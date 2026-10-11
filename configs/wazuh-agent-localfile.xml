@@ -1,0 +1,5 @@
+<!-- Añadir dentro de ossec_config en el agente, no en el manager. -->
+<localfile>
+  <log_format>json</log_format>
+  <location>/home/cowrie/honeypot/var/log/cowrie/cowrie.json</location>
+</localfile>

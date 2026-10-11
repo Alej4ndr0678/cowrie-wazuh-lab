@@ -1,0 +1,47 @@
+# Validación
+
+## Evidencia observada
+
+- Ping Cowrie → Wazuh: 4 enviados, 4 recibidos, 0 % pérdida.
+- Cowrie escuchando en 192.168.50.20:2222.
+- Agente 001 cowrie-honeypot activo, versión 4.14.8.
+- Logcollector analizando `/home/cowrie/honeypot/var/log/cowrie/cowrie.json`.
+- analysisd -t sin mensajes de error.
+- wazuh-logtest: JSON reconocido, regla 100104, nivel 5.
+- Tres alertas reales en alerts.json y en Threat Hunting.
+
+## Repetir la prueba
+
+Desde Windows:
+
+```powershell
+ssh -p 2222 root@192.168.50.20
+```
+
+Usar una contraseña ficticia exclusiva para la prueba. Cowrie registra contraseñas de los intentos; no incluirlas en capturas ni subir los registros completos.
+
+Si el honeypot acepta el acceso, ejecutar whoami, uname -a y exit. En el manager:
+
+```bash
+sudo grep '"100104"' /var/ossec/logs/alerts/alerts.json | tail -n 3
+```
+
+En Threat Hunting → Events seleccionar Last 15 minutes y DQL:
+
+```text
+agent.name:"cowrie-honeypot" AND rule.id:"100104"
+```
+
+Un rango con inicio y fin idénticos produjo cero resultados; corregir el selector antes de diagnosticar la integración.
+
+## Resultados del 10/10/2026 (America/Guayaquil)
+
+| Hora en panel | Comando | Regla | Nivel |
+|---|---|---|---|
+| 23:04:40.848 | whoami | 100104 | 5 |
+| 23:04:40.848 | uname -a | 100104 | 5 |
+| 23:04:41.798 | exit | 100104 | 5 |
+
+No se adjuntan capturas: las imágenes enviadas no estuvieron accesibles en el entorno de preparación. Los datos anteriores se basan en salidas de terminal y texto del panel compartidos por el autor.
+
+Las reglas de conexión, acceso fallido y acceso aceptado están definidas, pero su aparición en el panel aún requiere pruebas específicas. Un nivel 5 es una clasificación local, no evidencia de compromiso del Ubuntu real.

@@ -1,0 +1,20 @@
+# Credenciales y datos operativos
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+wazuh-install-files.tar
+wazuh-passwords.txt
+*.deb
+*.iso
+*.vhdx
+*.bak
+cowrie-env/
+venv/
+__pycache__/
+var/
+downloads/
+*.log
+# Revisar manualmente cualquier JSON antes de añadirlo.

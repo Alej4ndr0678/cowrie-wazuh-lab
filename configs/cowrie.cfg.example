@@ -1,0 +1,17 @@
+# Fragmento para fusionar con etc/cowrie.cfg; evitar secciones duplicadas.
+# Valores propuestos: verificar el archivo completo del laboratorio.
+[honeypot]
+hostname = servidor-lab
+backend = shell
+
+[ssh]
+enabled = true
+listen_endpoints = tcp:2222:interface=192.168.50.20
+forwarding = false
+
+[telnet]
+enabled = false
+
+[output_jsonlog]
+enabled = true
+logfile = ${honeypot:log_path}/cowrie.json
