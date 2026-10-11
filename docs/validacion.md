@@ -3,7 +3,7 @@
 ## Evidencia observada
 
 - Ping Cowrie → Wazuh: 4 enviados, 4 recibidos, 0 % pérdida.
-- Cowrie escuchando en 192.168.50.20:2222.
+- Cowrie escuchando en 192.0.2.20:2222.
 - Agente 001 cowrie-honeypot activo, versión 4.14.8.
 - Logcollector analizando `/home/cowrie/honeypot/var/log/cowrie/cowrie.json`.
 - analysisd -t sin mensajes de error.
@@ -15,7 +15,7 @@
 Desde Windows:
 
 ```powershell
-ssh -p 2222 root@192.168.50.20
+ssh -p 2222 root@192.0.2.20
 ```
 
 Usar una contraseña ficticia exclusiva para la prueba. Cowrie registra contraseñas de los intentos; no incluirlas en capturas ni subir los registros completos.
@@ -56,7 +56,7 @@ Después de sudo reboot y reconectar por SSH se obtuvo:
 enabled
 active
 active
-LISTEN 192.168.50.20:2222 (twistd)
+LISTEN 192.0.2.20:2222 (twistd)
 ```
 
 Las dos líneas active corresponden a cowrie y wazuh-agent. El puerto del honeypot se verificó después del reinicio; la prueba posterior de eventos hacia Wazuh se completó, como se documenta abajo. En Cowrie 3.1.1 del laboratorio, `cowrie start -n` produjo un error de argumento; se sustituyó por la ejecución directa de twistd que se probó satisfactoriamente.
@@ -69,7 +69,7 @@ En PowerShell administrador se ejecutó:
 Disconnect-VMNetworkAdapter -VMName "cowrie-honeypot" -Name "Network Adapter"
 ```
 
-La tarjeta Lab permaneció conectada a Lab-Honeypot. Ubuntu mostró eth0 DOWN, eth1 UP con 192.168.50.20/24 y una única ruta IPv4 a 192.168.50.0/24, sin ruta default. Cowrie y wazuh-agent siguieron activos. Ping a Wazuh: 4/4 respuestas, 0 % pérdida.
+La tarjeta Lab permaneció conectada a Lab-Honeypot. Ubuntu mostró eth0 DOWN, eth1 UP con 192.0.2.20/24 y una única ruta IPv4 a 192.0.2.0/24, sin ruta default. Cowrie y wazuh-agent siguieron activos. Ping a Wazuh: 4/4 respuestas, 0 % pérdida.
 
 Después se abrió otra sesión al puerto 2222 desde Windows. Threat Hunting mostró dos alertas reales de nivel 5 y regla 100104:
 
@@ -91,6 +91,12 @@ La prueba confirma recepción de eventos después de desconectar Default Switch.
 
 El panel mostró ocho conexiones en la ventana consultada, una originada en la propia VM Cowrie. No se considera una serie experimental de ocho repeticiones homogéneas.
 
-Se comprobó backend shell, hostname svr04, SSH limitado a 192.168.50.20:2222 y Telnet desactivado. Se cambió forwarding de true a false, se reinició el servicio y se verificó active (running) con el puerto escuchando. Las rutas IPv6 solo mostraron fe80::/64, sin ruta por defecto.
+Se comprobó backend shell, hostname svr04, SSH limitado a 192.0.2.20:2222 y Telnet desactivado. Se cambió forwarding de true a false, se reinició el servicio y se verificó active (running) con el puerto escuchando. Las rutas IPv6 solo mostraron fe80::/64, sin ruta por defecto.
 
 Se creó etc/userdb.txt con una política explícita (ver configs/userdb.txt.example). Los primeros intentos de aceptación fallaron porque la contraseña enviada difería del valor configurado, según el registro; después se usó una credencial ficticia alfanumérica y el acceso fue aceptado. Los rechazos confirman clasificación de eventos, no una tasa de falsos positivos ni efectividad general. No se publican contraseñas reales ni registros completos de autenticación.
+
+## Persistencia después del reinicio (11/10/2026)
+
+**Nota de seguridad:** Las IP reales del laboratorio se omitieron por seguridad. Las direcciones `192.0.2.0/24` mostradas son ficticias para documentación; sustitúyelas por las de tu entorno al reproducirlo.
+
+La VM arrancó a las 00:24:36 de Ecuador (05:24:36 UTC). Tras reiniciar con Default Switch desconectado se comprobaron Cowrie y el agente activos, el puerto del honeypot escuchando y ausencia de rutas IPv4 e IPv6 por defecto. Una nueva prueba generó en el panel la alerta «Cowrie: comando registrado: echo prueba-reinicio.» a las 00:45:06.132, regla 100104, nivel 5. Esto confirma persistencia y envío de eventos. El reenvío del host Windows sigue pendiente de inspección.
