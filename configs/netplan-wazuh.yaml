@@ -1,3 +1,4 @@
+# IP ficticia de documentación; IP real omitida por seguridad. Adaptar al entorno.
 network:
   version: 2
   ethernets:
@@ -5,4 +6,4 @@ network:
       dhcp4: false
       dhcp6: false
       addresses:
-        - 192.168.50.10/24
+        - 192.0.2.10/24
