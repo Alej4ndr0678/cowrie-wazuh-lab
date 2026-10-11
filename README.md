@@ -51,3 +51,7 @@ La integración está verificada. El arranque automático de Cowrie y del agente
 - https://documentation.wazuh.com/current/user-manual/reference/tools/wazuh-logtest.html
 
 Versiones documentadas corresponden al laboratorio; consultar compatibilidad antes de reproducir con versiones nuevas.
+
+## Validación ampliada (11/10/2026)
+
+Las cuatro reglas 100101–100104 se verificaron con alertas reales en el panel. Backend shell y Telnet desactivado fueron comprobados; forwarding SSH se desactivó y Cowrie mantuvo su escucha. No se observó ruta IPv6 por defecto. La política de autenticación de laboratorio acepta únicamente la credencial ficticia definida en configs/userdb.txt.example. Las repeticiones experimentales siguen pendientes.
