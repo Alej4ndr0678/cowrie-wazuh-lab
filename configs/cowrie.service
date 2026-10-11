@@ -1,0 +1,17 @@
+[Unit]
+Description=Cowrie SSH Honeypot
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=cowrie
+Group=cowrie
+WorkingDirectory=/home/cowrie/honeypot
+Environment="PATH=/home/cowrie/honeypot/cowrie-env/bin:/usr/local/bin:/usr/bin:/bin"
+ExecStart=/home/cowrie/honeypot/cowrie-env/bin/twistd --nodaemon --umask=0022 --pidfile= --logger cowrie.python.logfile.logger cowrie
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
