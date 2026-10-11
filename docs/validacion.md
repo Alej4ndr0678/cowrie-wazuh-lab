@@ -44,7 +44,7 @@ Un rango con inicio y fin idénticos produjo cero resultados; corregir el select
 
 No se adjuntan capturas: las imágenes enviadas no estuvieron accesibles en el entorno de preparación. Los datos anteriores se basan en salidas de terminal y texto del panel compartidos por el autor.
 
-Las reglas de conexión, acceso fallido y acceso aceptado están definidas, pero su aparición en el panel aún requiere pruebas específicas. Un nivel 5 es una clasificación local, no evidencia de compromiso del Ubuntu real.
+Las reglas de conexión, acceso fallido y acceso aceptado se verificaron posteriormente; ver la validación ampliada. Un nivel 5 es una clasificación local, no evidencia de compromiso del Ubuntu real.
 
 ## Arranque automático comprobado (10/10/2026)
 
@@ -59,7 +59,7 @@ active
 LISTEN 192.168.50.20:2222 (twistd)
 ```
 
-Las dos líneas active corresponden a cowrie y wazuh-agent. El puerto del honeypot se verificó después del reinicio; falta repetir la prueba de eventos hacia Wazuh. En Cowrie 3.1.1 del laboratorio, `cowrie start -n` produjo un error de argumento; se sustituyó por la ejecución directa de twistd que se probó satisfactoriamente.
+Las dos líneas active corresponden a cowrie y wazuh-agent. El puerto del honeypot se verificó después del reinicio; la prueba posterior de eventos hacia Wazuh se completó, como se documenta abajo. En Cowrie 3.1.1 del laboratorio, `cowrie start -n` produjo un error de argumento; se sustituyó por la ejecución directa de twistd que se probó satisfactoriamente.
 
 ## Desconexión de Default Switch y prueba posterior (10/10/2026)
 
@@ -78,4 +78,19 @@ Después se abrió otra sesión al puerto 2222 desde Windows. Threat Hunting mos
 | 23:57:17.280 | echo prueba-red-laboratorio |
 | 23:57:17.321 | exit |
 
-La prueba confirma recepción de eventos después de desconectar Default Switch. No verifica por sí sola aislamiento total: falta inspeccionar rutas IPv6 y reenvío del host. Windows y Wazuh siguen accesibles en el segmento interno por diseño. Para volver a descargar paquetes se requiere reconectar explícitamente el adaptador y volver a desconectarlo antes de las pruebas.
+La prueba confirma recepción de eventos después de desconectar Default Switch. No verifica por sí sola aislamiento total: las rutas IPv6 fueron inspeccionadas posteriormente; falta comprobar reenvío del host. Windows y Wazuh siguen accesibles en el segmento interno por diseño. Para volver a descargar paquetes se requiere reconectar explícitamente el adaptador y volver a desconectarlo antes de las pruebas.
+
+## Autenticación y configuración comprobadas (11/10/2026)
+
+| Hora local | Evento | Regla | Nivel |
+|---|---|---|---|
+| 00:11:07.412 | Conexión desde Windows | 100101 | 3 |
+| 00:11:09.413 | Acceso fallido de root | 100102 | 5 |
+| 00:21:27.509 | Nueva conexión desde Windows | 100101 | 3 |
+| 00:21:35.508 | Acceso aceptado de root | 100103 | 5 |
+
+El panel mostró ocho conexiones en la ventana consultada, una originada en la propia VM Cowrie. No se considera una serie experimental de ocho repeticiones homogéneas.
+
+Se comprobó backend shell, hostname svr04, SSH limitado a 192.168.50.20:2222 y Telnet desactivado. Se cambió forwarding de true a false, se reinició el servicio y se verificó active (running) con el puerto escuchando. Las rutas IPv6 solo mostraron fe80::/64, sin ruta por defecto.
+
+Se creó etc/userdb.txt con una política explícita (ver configs/userdb.txt.example). Los primeros intentos de aceptación fallaron porque la contraseña enviada difería del valor configurado, según el registro; después se usó una credencial ficticia alfanumérica y el acceso fue aceptado. Los rechazos confirman clasificación de eventos, no una tasa de falsos positivos ni efectividad general. No se publican contraseñas reales ni registros completos de autenticación.
