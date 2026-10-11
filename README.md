@@ -60,6 +60,4 @@ Las cuatro reglas 100101–100104 se verificaron con alertas reales en el panel.
 
 ## Un registro de verificación: 
 
-<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/e35d0f27-bc83-4022-997b-4cf03f413509" />
-
-
+<img width="1919" height="984" alt="image" src="https://github.com/user-attachments/assets/9262e701-7c15-41b6-898b-4ed2d40435c7" />
