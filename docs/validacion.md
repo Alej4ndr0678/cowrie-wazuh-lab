@@ -60,3 +60,22 @@ LISTEN 192.168.50.20:2222 (twistd)
 ```
 
 Las dos líneas active corresponden a cowrie y wazuh-agent. El puerto del honeypot se verificó después del reinicio; falta repetir la prueba de eventos hacia Wazuh. En Cowrie 3.1.1 del laboratorio, `cowrie start -n` produjo un error de argumento; se sustituyó por la ejecución directa de twistd que se probó satisfactoriamente.
+
+## Desconexión de Default Switch y prueba posterior (10/10/2026)
+
+En PowerShell administrador se ejecutó:
+
+```powershell
+Disconnect-VMNetworkAdapter -VMName "cowrie-honeypot" -Name "Network Adapter"
+```
+
+La tarjeta Lab permaneció conectada a Lab-Honeypot. Ubuntu mostró eth0 DOWN, eth1 UP con 192.168.50.20/24 y una única ruta IPv4 a 192.168.50.0/24, sin ruta default. Cowrie y wazuh-agent siguieron activos. Ping a Wazuh: 4/4 respuestas, 0 % pérdida.
+
+Después se abrió otra sesión al puerto 2222 desde Windows. Threat Hunting mostró dos alertas reales de nivel 5 y regla 100104:
+
+| Hora local | Comando |
+|---|---|
+| 23:57:17.280 | echo prueba-red-laboratorio |
+| 23:57:17.321 | exit |
+
+La prueba confirma recepción de eventos después de desconectar Default Switch. No verifica por sí sola aislamiento total: falta inspeccionar rutas IPv6 y reenvío del host. Windows y Wazuh siguen accesibles en el segmento interno por diseño. Para volver a descargar paquetes se requiere reconectar explícitamente el adaptador y volver a desconectarlo antes de las pruebas.
