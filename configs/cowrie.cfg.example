@@ -1,7 +1,7 @@
 # Fragmento para fusionar con etc/cowrie.cfg; evitar secciones duplicadas.
-# Valores propuestos: verificar el archivo completo del laboratorio.
+# Valores comprobados en el laboratorio; fusionar con la configuración completa.
 [honeypot]
-hostname = servidor-lab
+hostname = svr04
 backend = shell
 
 [ssh]
