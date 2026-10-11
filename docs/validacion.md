@@ -45,3 +45,18 @@ Un rango con inicio y fin idénticos produjo cero resultados; corregir el select
 No se adjuntan capturas: las imágenes enviadas no estuvieron accesibles en el entorno de preparación. Los datos anteriores se basan en salidas de terminal y texto del panel compartidos por el autor.
 
 Las reglas de conexión, acceso fallido y acceso aceptado están definidas, pero su aparición en el panel aún requiere pruebas específicas. Un nivel 5 es una clasificación local, no evidencia de compromiso del Ubuntu real.
+
+## Arranque automático comprobado (10/10/2026)
+
+Servicio disponible en `configs/cowrie.service`. Instalar en /etc/systemd/system/cowrie.service, detener primero la instancia manual y ejecutar daemon-reload y enable --now cowrie. El servicio usa twistd en primer plano con el usuario cowrie y el directorio de estado del honeypot.
+
+Después de sudo reboot y reconectar por SSH se obtuvo:
+
+```text
+enabled
+active
+active
+LISTEN 192.168.50.20:2222 (twistd)
+```
+
+Las dos líneas active corresponden a cowrie y wazuh-agent. El puerto del honeypot se verificó después del reinicio; falta repetir la prueba de eventos hacia Wazuh. En Cowrie 3.1.1 del laboratorio, `cowrie start -n` produjo un error de argumento; se sustituyó por la ejecución directa de twistd que se probó satisfactoriamente.
