@@ -1,7 +1,7 @@
 # Pendientes antes de completar la versión 1
 
 - [ ] Comprobar backend shell, forwarding desactivado y Telnet desactivado en configuración real.
-- [ ] Configurar arranque automático de Cowrie con un servicio y validar tras reiniciar.
+- [x] Configurar arranque automático de Cowrie con un servicio y validar tras reiniciar (10/10/2026).
 - [ ] Retirar Default Switch de Cowrie después de instalar dependencias y comprobar rutas de salida.
 - [ ] Comprobar que Wazuh recibe eventos después del aislamiento y reinicio.
 - [ ] Validar reglas 100101, 100102 y 100103 con eventos reales.
