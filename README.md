@@ -8,7 +8,7 @@ El 10 de octubre de 2026 se verificó el recorrido completo: Windows → Cowrie 
 
 | Componente | Configuración |
 |---|---|
-| Host | Windows, Intel i5-12450H, 32 GB RAM |
+| Host | Windows 11 Pro, 32 GB RAM |
 | Wazuh | Ubuntu Server 24.04, Wazuh 4.14.8, 4 vCPU, 8 GB RAM fija, disco 60 GB |
 | Cowrie | Ubuntu Server 24.04.5, Cowrie 3.1.1, 2 vCPU, 2 GB RAM fija, disco 25 GB |
 | Red | Switch interno Hyper-V Lab-Honeypot, 192.168.50.0/24 |
