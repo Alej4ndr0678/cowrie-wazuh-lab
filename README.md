@@ -57,3 +57,9 @@ Versiones documentadas corresponden al laboratorio; consultar compatibilidad ant
 ## Validación ampliada (11/10/2026)
 
 Las cuatro reglas 100101–100104 se verificaron con alertas reales en el panel. Backend shell y Telnet desactivado fueron comprobados; forwarding SSH se desactivó y Cowrie mantuvo su escucha. No se observó ruta IPv6 por defecto. La política de autenticación de laboratorio acepta únicamente la credencial ficticia definida en configs/userdb.txt.example. Las repeticiones experimentales siguen pendientes.
+
+## Un registro de verificación: 
+
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/e35d0f27-bc83-4022-997b-4cf03f413509" />
+
+
