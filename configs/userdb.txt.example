@@ -1,0 +1,4 @@
+# Credenciales ficticias del shell simulado para pruebas controladas.
+# No son cuentas de administración de Ubuntu.
+root:x:!rechazo2026
+root:x:acceso2026
