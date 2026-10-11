@@ -40,7 +40,7 @@ flowchart TD
 
 ## Límites actuales
 
-La integración está verificada. El arranque automático de Cowrie y la retirada de su tarjeta Default Switch todavía están pendientes. Escuchar solo en la IP del laboratorio no bloquea la salida a Internet. El switch interno incluye acceso al host Windows; no implica aislamiento total del host. Las pruebas realizadas son controladas y no representan ataques recibidos desde Internet.
+La integración está verificada. El arranque automático de Cowrie y del agente fue verificado tras reiniciar el 10/10/2026. La retirada de su tarjeta Default Switch todavía está pendiente. Escuchar solo en la IP del laboratorio no bloquea la salida a Internet. El switch interno incluye acceso al host Windows; no implica aislamiento total del host. Las pruebas realizadas son controladas y no representan ataques recibidos desde Internet.
 
 ## Fuentes
 
